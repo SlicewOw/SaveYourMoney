@@ -1,0 +1,7 @@
+.container {
+    width: 90%;
+    max-width: 90%;
+}
+.card > .table-responsive > .table {
+    margin-bottom: 0px;
+}
