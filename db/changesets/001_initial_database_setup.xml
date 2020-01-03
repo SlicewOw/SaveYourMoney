@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="create table account" author="SlicewOw">
+        <createTable tableName="sym_account">
+            <column name="account_id" type="int(11)" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="account_name" type="varchar(255)">
+                <constraints nullable="false" unique="true" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create table financial movements" author="SlicewOw">
+        <createTable tableName="sym_financial_movements">
+            <column name="movement_id" type="int(11)" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="account_id" type="int(11)">
+                <constraints nullable="false" />
+            </column>
+            <column name="date" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="amount" type="double">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add foreign key constraint to table income" author="SlicewOw">
+        <addForeignKeyConstraint baseColumnNames="account_id"
+                baseTableName="sym_income"
+                baseTableSchemaName="sym"
+                constraintName="fk_income_account_id"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="account_id"
+                referencedTableName="sym_account"
+                referencedTableSchemaName="sym"/>
+    </changeSet>
+
+</databaseChangeLog>
