@@ -1,3 +1,5 @@
+db/liquibase.log
+
 composer.lock
 symfony.lock
 

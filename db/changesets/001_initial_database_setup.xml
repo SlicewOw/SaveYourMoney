@@ -10,7 +10,7 @@
                 <constraints nullable="false" primaryKey="true" />
             </column>
             <column name="account_name" type="varchar(255)">
-                <constraints nullable="false" unique="true" />
+                <constraints nullable="false" />
             </column>
         </createTable>
     </changeSet>
@@ -34,7 +34,7 @@
 
     <changeSet id="add foreign key constraint to table income" author="SlicewOw">
         <addForeignKeyConstraint baseColumnNames="account_id"
-                baseTableName="sym_income"
+                baseTableName="sym_financial_movements"
                 baseTableSchemaName="sym"
                 constraintName="fk_income_account_id"
                 onDelete="CASCADE"

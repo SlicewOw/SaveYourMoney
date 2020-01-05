@@ -1,3 +1,0 @@
-Liquibase Community 3.8.4 by Datical
-Unerwarteter Fehler bei der Ausführung von Liquibase: Table 'sym.sym_income' doesn't exist [Failed SQL: (1146) ALTER TABLE sym.sym_income ADD CONSTRAINT fk_income_account_id FOREIGN KEY (account_id) REFERENCES sym.sym_account (account_id) ON UPDATE RESTRICT ON DELETE CASCADE]
-Bitte verwenden Sie die '--logLevel'-Option, um mehr Informationen zu erhalten.
