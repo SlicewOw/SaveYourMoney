@@ -10,3 +10,4 @@ Accounting website to be hosted locally on your machine
 # Installation
 
 * Execute bat script `/db/runLiquibase.bat` to install database tables and stuff
+* Start development server with `php bin/console server:run`
