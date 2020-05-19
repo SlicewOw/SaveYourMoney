@@ -24,7 +24,9 @@
                     <tr>
                         <td>{{ account.id }}</td>
                         <td>{{ account.getAccountName() }}</td>
-                        <td><a href="/account/{{ account.id }}" class="btn btn-info btn-sm">Details</a></td>
+                        <td>
+                            <a href="/account/{{ account.id }}" class="btn btn-info btn-sm">Details</a>
+                        </td>
                     </tr>
                     {% endfor %}
                 {% endif %}

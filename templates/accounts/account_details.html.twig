@@ -1,16 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ account.getAccountName() }}{% endblock %}
+{% block title %}Details of {{ account.getAccountName() }}{% endblock %}
 
 {% block body %}
 <div class="card">
     <div class="card-header">
-        Your accounts
+        <strong>Details of {{ account.getAccountName() }}</strong>
     </div>
     <div class="card-body">
         This is the detail page of <strong>{{ account.getAccountName() }}</strong> which has the ID {{ account.id }}!
     </div>
+    <div class="card-footer">
+        <a href="#" class="btn btn-danger btn-sm" id="delete-button" data-id="{{ account.id }}">Delete account</a>
+    </div>
 </div>
 <br />
 <a href="/accounts" class="btn btn-secondary">Back to the overview!</a>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/account.js"></script>
 {% endblock %}

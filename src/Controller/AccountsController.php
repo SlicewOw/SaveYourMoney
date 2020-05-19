@@ -83,6 +83,23 @@ class AccountsController extends AbstractController
     }
 
     /**
+     * @Route("/account/delete/{id}", name="delete_account")
+     * @Method({"DELETE"})
+     */
+    public function delete(Request $request, $id) {
+
+        $account = $this->getDoctrine()->getRepository(Account::class)->find($id);
+
+        $entity_manager = $this->getDoctrine()->getManager();
+        $entity_manager->remove($account);
+        $entity_manager->flush();
+
+        $response = new Response();
+        $response->send();
+
+    }
+
+    /**
      * @Route("/account/{id}", name="account_details")
      */
     public function show($id) {
