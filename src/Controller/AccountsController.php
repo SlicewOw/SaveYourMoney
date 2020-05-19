@@ -106,7 +106,7 @@ class AccountsController extends AbstractController
             'save',
             SubmitType::class,
             array(
-                'label' => 'Save new account',
+                'label' => 'Update account',
                 'attr' => array('class' => 'btn btn-success')
             )
         );
