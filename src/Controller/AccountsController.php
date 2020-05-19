@@ -83,6 +83,54 @@ class AccountsController extends AbstractController
     }
 
     /**
+     * @Route("/account/edit/{id}"), name="edit_account"
+     * @Method({"GET", "POST"})
+     */
+    public function edit(Request $request, $id) {
+
+        $account = $this->getDoctrine()->getRepository(Account::class)->find($id);
+
+        $form_builder = $this->createFormBuilder($account);
+        $form_builder->add(
+            'account_name',
+            TextType::class,
+            array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Name of the account (e.g. Giro)'
+                ),
+                'required' => true
+            )
+        );
+        $form_builder->add(
+            'save',
+            SubmitType::class,
+            array(
+                'label' => 'Save new account',
+                'attr' => array('class' => 'btn btn-success')
+            )
+        );
+
+        $form = $form_builder->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entity_manager = $this->getDoctrine()->getManager();
+            $entity_manager->flush();
+
+            return $this->redirectToRoute("accounts");
+
+        }
+
+        return $this->render('accounts/edit_account.html.twig', array(
+            'form' => $form->createView()
+        ));
+
+    }
+
+    /**
      * @Route("/account/delete/{id}", name="delete_account")
      * @Method({"DELETE"})
      */
