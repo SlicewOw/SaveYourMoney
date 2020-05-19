@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Your Accounts{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-header">
+        Your accounts
+    </div>
+    <div class="card-body">
+        This is the detail page of <strong>{{ account.getAccountName() }}</strong> which has the ID {{ account.id }}!
+    </div>
+</div>
+<br />
+<a href="/accounts" class="btn btn-secondary">Back to the overview!</a>
+{% endblock %}

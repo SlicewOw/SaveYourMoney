@@ -23,4 +23,18 @@ class AccountsController extends AbstractController
         ]);
 
     }
+
+    /**
+     * @Route("/account/{id}", name="account_details")
+     */
+    public function show($id) {
+
+        $account = $this->getDoctrine()->getRepository(Account::class)->find($id);
+
+        return $this->render('accounts/account_details.html.twig', [
+            'account' => $account
+        ]);
+
+    }
+
 }
