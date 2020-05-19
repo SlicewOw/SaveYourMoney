@@ -3,11 +3,14 @@ Accounting website to be hosted locally on your machine
 
 # Preconditions
 
-* Install Liquibase on your machine to setup the MySQL database (https://www.liquibase.org/documentation/installation-windows.html)
 * Composer is installed (https://getcomposer.org/download/)
 * Symfony is installed (https://symfony.com/download)
 
 # Installation
 
-* Execute bat script `/db/runLiquibase.bat` to install database tables and stuff
 * Start development server with `php bin/console server:run`
+
+# Database migrations
+
+* First you need to create the diff `php bin/console make:migration`
+* Now we are able to publish the changes to the database `php bin/console doctrine:migrations:migrate`
