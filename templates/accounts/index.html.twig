@@ -14,18 +14,18 @@
                 <th>Name</th>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Giro</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>VisaCard</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>MasterCard</td>
-                </tr>
+                {% if accounts is empty %}
+                    <tr>
+                        <td colspan="2">No accounts yet.</td>
+                    </tr>
+                {% else %}
+                    {% for account in accounts %}
+                    <tr>
+                        <td>{{ account.id }}</td>
+                        <td>{{ account.getAccountName() }}</td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
             </tbody>
         </table>
     </div>
