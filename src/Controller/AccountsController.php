@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Account;
+use App\Entity\FinancialMovement;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,7 +13,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class AccountsController extends AbstractController
@@ -88,7 +92,7 @@ class AccountsController extends AbstractController
      */
     public function edit(Request $request, $id) {
 
-        $account = $this->getDoctrine()->getRepository(Account::class)->find($id);
+        $account = $this->getAccountById($id);
 
         $form_builder = $this->createFormBuilder($account);
         $form_builder->add(
@@ -136,7 +140,7 @@ class AccountsController extends AbstractController
      */
     public function delete(Request $request, $id) {
 
-        $account = $this->getDoctrine()->getRepository(Account::class)->find($id);
+        $account = $this->getAccountById($id);
 
         $entity_manager = $this->getDoctrine()->getManager();
         $entity_manager->remove($account);
@@ -148,16 +152,98 @@ class AccountsController extends AbstractController
     }
 
     /**
+     * @Route("/account/transaction/{id}", name="account_transaction")
+     * @Method({"GET", "POST"})
+     */
+    public function transaction(Request $request, $id) {
+
+        $transaction = new FinancialMovement();
+        $account = $this->getAccountById($id);
+
+        $datetime_format = 'Y-m-d';
+        $today = date($datetime_format);
+
+        $transaction->setDateToToday();
+
+        $form_builder = $this->createFormBuilder($transaction);
+        $form_builder->add(
+            'date',
+            DateType::class,
+            array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => $today
+                ),
+                'required' => true,
+                'widget' => 'single_text',
+                'input' => 'datetime'
+            )
+        );
+        $form_builder->add(
+            'amount',
+            NumberType::class,
+            array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => '0.00 EUR',
+                    'min' => 0.01,
+                ),
+                'required' => true
+            )
+        );
+        $form_builder->add(
+            'account_id',
+            HiddenType::class,
+            array(
+                'data' => $account->getId()
+            )
+        );
+        $form_builder->add(
+            'save',
+            SubmitType::class,
+            array(
+                'label' => 'Save transaction',
+                'attr' => array('class' => 'btn btn-success')
+            )
+        );
+
+        $form = $form_builder->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $transaction = $form->getData();
+            $entity_manager = $this->getDoctrine()->getManager();
+            $entity_manager->persist($transaction);
+            $entity_manager->flush();
+
+            return $this->redirectToRoute('accounts');
+
+        }
+
+        return $this->render('accounts/new_transaction.html.twig', array(
+            'form' => $form->createView(),
+            'account' => $account
+        ));
+
+    }
+
+    /**
      * @Route("/account/{id}", name="account_details")
      */
     public function show($id) {
 
-        $account = $this->getDoctrine()->getRepository(Account::class)->find($id);
+        $account = $this->getAccountById($id);
 
         return $this->render('accounts/account_details.html.twig', [
             'account' => $account
         ]);
 
+    }
+
+    private function getAccountById($id) {
+        return $this->getDoctrine()->getRepository(Account::class)->find($id);
     }
 
 }

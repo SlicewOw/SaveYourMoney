@@ -61,6 +61,10 @@ class FinancialMovement
         return $this;
     }
 
+    public function setDateToToday() {
+        $this->setDate(new \DateTime('today'));
+    }
+
     public function getAmount(): ?float
     {
         return $this->amount;
@@ -72,4 +76,5 @@ class FinancialMovement
 
         return $this;
     }
+
 }

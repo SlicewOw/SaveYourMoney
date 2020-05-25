@@ -26,7 +26,7 @@
                     <li {% if route_name is empty or route_name in ["home"] %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
                         <a class="nav-link" href="{{ path('home') }}">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li {% if route_name in ["accounts", "account_details"] %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                    <li {% if route_name in ["accounts", "account_details", "account_transaction"] %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
                         <a class="nav-link" href="{{ path('accounts') }}">Accounts</a>
                     </li>
                 </ul>
