@@ -21,6 +21,11 @@ class Account
      */
     private $account_name;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $start_amount;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -34,6 +39,18 @@ class Account
     public function setAccountName(string $account_name): self
     {
         $this->account_name = $account_name;
+
+        return $this;
+    }
+
+    public function getStartAmount(): ?float
+    {
+        return $this->start_amount;
+    }
+
+    public function setStartAmount(?float $start_amount): self
+    {
+        $this->start_amount = $start_amount;
 
         return $this;
     }

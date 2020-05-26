@@ -57,6 +57,17 @@ class AccountsController extends AbstractController
             )
         );
         $form_builder->add(
+            'start_amount',
+            NumberType::class,
+            array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => '12.345 EUR'
+                ),
+                'required' => false
+            )
+        );
+        $form_builder->add(
             'save',
             SubmitType::class,
             array(
@@ -102,6 +113,17 @@ class AccountsController extends AbstractController
                 'attr' => array(
                     'class' => 'form-control',
                     'placeholder' => 'Name of the account (e.g. Giro)'
+                ),
+                'required' => true
+            )
+        );
+        $form_builder->add(
+            'start_amount',
+            NumberType::class,
+            array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => '12.345 EUR'
                 ),
                 'required' => true
             )
