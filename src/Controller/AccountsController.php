@@ -259,8 +259,20 @@ class AccountsController extends AbstractController
         $account = $this->getAccountById($id);
 
         return $this->render('accounts/account_details.html.twig', [
-            'account' => $account
+            'account' => $account,
+            'transactions' => $this->getTransactionsByAccountId($id)
         ]);
+
+    }
+
+    private function getTransactionsByAccountId($account_id, $limit=10) {
+
+        return $this->getDoctrine()->getRepository(FinancialMovement::class)->findBy(
+            ['account_id' => $account_id],
+            ['date' => 'DESC'],
+            $limit,
+            0
+        );
 
     }
 

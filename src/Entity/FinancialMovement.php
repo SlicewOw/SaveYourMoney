@@ -54,6 +54,11 @@ class FinancialMovement
         return $this->date;
     }
 
+    public function getDateAsString(): ?string
+    {
+        return $this->date->format('Y-m-d');
+    }
+
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
@@ -68,6 +73,11 @@ class FinancialMovement
     public function getAmount(): ?float
     {
         return $this->amount;
+    }
+
+    public function getAmountInEuro(): ?string
+    {
+        return number_format((float)$this->amount, 2, '.', '') . ' EUR';
     }
 
     public function setAmount(float $amount): self

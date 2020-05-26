@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Transactions of {{ account.getAccountName() }}{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-header">
+        Transactions of account <strong>{{ account.getAccountName() }}</strong>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <th>#</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </thead>
+            <tbody>
+                {% if transactions is empty %}
+                    <tr>
+                        <td colspan="3">No transactions yet.</td>
+                    </tr>
+                {% else %}
+                    {% for transaction in transactions %}
+                    <tr>
+                        <td>{{ transaction.id }}</td>
+                        <td>{{ transaction.getAmountInEuro() }}</td>
+                        <td>{{ transaction.getDateAsString() }}</td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <div class="float-right clearfix">
+            <a href="/account/transaction/{{ account.id }}" class="btn btn-primary btn-sm">Add transaction</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
