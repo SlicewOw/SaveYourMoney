@@ -214,6 +214,17 @@ class AccountsController extends AbstractController
             )
         );
         $form_builder->add(
+            'category',
+            TextType::class,
+            array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Category of transaction (e.g. AmazonPrime)'
+                ),
+                'required' => true
+            )
+        );
+        $form_builder->add(
             'account_id',
             HiddenType::class,
             array(
