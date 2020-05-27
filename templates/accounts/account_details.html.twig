@@ -7,6 +7,7 @@
 <div class="row">
 
     <div class="col-sm-6">
+
         <div class="card">
             <div class="card-header">
                 <strong>Details of {{ account.getAccountName() }}</strong>
@@ -19,8 +20,21 @@
                 <a href="#" class="btn btn-danger btn-sm" id="delete-button" data-id="{{ account.id }}">Delete account</a>
             </div>
         </div>
+
+        <br />
+
+        <div class="card">
+            <div class="card-header">
+                <strong>Balance of {{ account.getAccountName() }}</strong>
+            </div>
+            <div class="card-body">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+
         <br />
         <a href="/accounts" class="btn btn-secondary">Back to the overview!</a>
+
     </div>
 
     <div class="col-sm-6">
@@ -68,5 +82,31 @@
 {% endblock %}
 
 {% block javascripts %}
+
     <script src="/js/account.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Income', 'Outcome'],
+                datasets: [{
+                    data: [
+                        {{ income }},
+                        {{ outcome }}
+                    ],
+                    backgroundColor: [
+                        'rgba(0, 255, 0, 0.6)',
+                        'rgba(255, 0, 0, 0.6)'
+                    ],
+                    label: 'Balance'
+                }]
+            },
+            options: {}
+        });
+    });
+    </script>
+
 {% endblock %}

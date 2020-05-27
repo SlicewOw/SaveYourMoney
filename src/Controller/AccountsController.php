@@ -269,9 +269,14 @@ class AccountsController extends AbstractController
 
         $account = $this->getAccountById($id);
 
+        $income = rand(1, 3000);
+        $outcome = rand(1, 3000);
+
         return $this->render('accounts/account_details.html.twig', [
             'account' => $account,
-            'transactions' => $this->getTransactionsByAccountId($id)
+            'transactions' => $this->getTransactionsByAccountId($id),
+            'income' => $income,
+            'outcome' => $outcome
         ]);
 
     }
