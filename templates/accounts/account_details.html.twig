@@ -30,7 +30,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6">
-                        <canvas id="myChart"></canvas>
+                        <canvas id="pieChartTotalBalance"></canvas>
                     </div>
                     <div class="col-sm-6">
                         <strong>Balance</strong><br />
@@ -42,6 +42,20 @@
                         Total balance: <strong class="float-right">{{ balance }} &euro;</strong>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <br />
+
+        <div class="card">
+            <div class="card-header">
+                <strong>Balance of {{ current_month }}</strong>
+            </div>
+            <div class="card-body">
+                <canvas id="lineChartCurrentMonth"></canvas>
+            </div>
+            <div class="card-footer">
+                <a href="/statistics/{{ account.id }}" class="btn btn-primary btn-sm">Show statistics</a>
             </div>
         </div>
 
@@ -102,7 +116,8 @@
 
     <script>
     $(document).ready(function() {
-        var ctx = document.getElementById('myChart').getContext('2d');
+
+        var ctx = document.getElementById('pieChartTotalBalance').getContext('2d');
         var chart = new Chart(ctx, {
             type: 'pie',
             data: {
@@ -121,7 +136,33 @@
             },
             options: {}
         });
+
+        var ctx = document.getElementById('lineChartCurrentMonth').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [
+                    {
+                        data: [
+                            {{ income_of_current_month_per_day }}
+                        ],
+                        backgroundColor: 'rgba(0, 255, 0, 0.6)',
+                        label: 'Income'
+                    },
+                    {
+                        data: [
+                            {{ outcome_of_current_month_per_day }}
+                        ],
+                        backgroundColor: 'rgba(255, 0, 0, 0.6)',
+                        label: 'Outcome'
+                    }
+                ]
+            },
+            options: {}
+        });
+
     });
+
     </script>
 
 {% endblock %}

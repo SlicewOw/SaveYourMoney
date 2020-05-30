@@ -293,7 +293,10 @@ class AccountsController extends AbstractController
             'transactions' => $this->getTransactionsByAccountId($id),
             'income' => $income,
             'outcome' => $outcome,
-            'balance' => $balance
+            'balance' => $balance,
+            'current_month' => date('F'),
+            'income_of_current_month_per_day' => implode(',', array(rand(1, 100), rand(1, 100), rand(1, 100))),
+            'outcome_of_current_month_per_day' => implode(',', array(rand(1, 100), rand(1, 100), rand(1, 100)))
         ]);
 
     }
