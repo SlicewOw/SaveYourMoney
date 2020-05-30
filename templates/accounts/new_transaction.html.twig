@@ -5,7 +5,46 @@
 {% block body %}
 
     {{ form_start(form) }}
-    {{ form_widget(form) }}
+    <div class="card">
+
+        <div class="card-header">
+            Add new transaction
+        </div>
+
+        <div class="card-body">
+
+            <div class="my-custom-class-for-errors">
+                {{ form_errors(form) }}
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    {{ form_row(form.date) }}
+                </div>
+                <div class="col-sm-3">
+                    {{ form_row(form.amount) }}
+                </div>
+                <div class="col-sm-6">
+                    {{ form_row(form.category) }}
+                    <datalist id="transaction_categories">
+                        {% if transaction_category_options|length > 0 %}
+                            {% for transaction_category_option in transaction_category_options %}
+                            <option value="{{ transaction_category_option }}">
+                            {% endfor %}
+                        {% endif %}
+                    </datalist>
+                </div>
+                <div class="col-sm-6"></div>
+            </div>
+
+        </div>
+
+        <div class="card-footer">
+            {{ form_row(form.account_id ) }}
+            {{ form_row(form.save) }}
+        </div>
+
+    </div>
     {{ form_end(form) }}
 
 {% endblock %}

@@ -218,6 +218,7 @@ class AccountsController extends AbstractController
             TextType::class,
             array(
                 'attr' => array(
+                    'list' => 'transaction_categories',
                     'class' => 'form-control',
                     'placeholder' => 'Category of transaction (e.g. AmazonPrime)'
                 ),
@@ -255,9 +256,17 @@ class AccountsController extends AbstractController
 
         }
 
+        #TODO: Use data of database to show list options
+        $transaction_category_options = array(
+            'Appartment',
+            'Lifestyle',
+            'Shopping'
+        );
+
         return $this->render('accounts/new_transaction.html.twig', array(
             'form' => $form->createView(),
-            'account' => $account
+            'account' => $account,
+            'transaction_category_options' => $transaction_category_options
         ));
 
     }
