@@ -28,7 +28,20 @@
                 <strong>Balance of {{ account.getAccountName() }}</strong>
             </div>
             <div class="card-body">
-                <canvas id="myChart"></canvas>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                    <div class="col-sm-6">
+                        <strong>Balance</strong><br />
+                        Total income: <span class="float-right">{{ income }} &euro;</span>
+                        <br />
+                        Total outcome: <span class="float-right">{{ outcome }} &euro;</span>
+                        <br />
+                        <br />
+                        Total balance: <strong class="float-right">{{ balance }} &euro;</strong>
+                    </div>
+                </div>
             </div>
         </div>
 

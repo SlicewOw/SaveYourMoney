@@ -269,14 +269,31 @@ class AccountsController extends AbstractController
 
         $account = $this->getAccountById($id);
 
-        $income = rand(1, 3000);
-        $outcome = rand(1, 3000);
+        $transactions = $this->getDoctrine()->getRepository(FinancialMovement::class)->findBy(
+            ['account_id' => $id]
+        );
+
+        $income = 0;
+        $outcome = 0;
+        foreach ($transactions as $transaction) {
+
+            $amount = $transaction->getAmount();
+            if ($amount < 0) {
+                $outcome += $amount;
+            } else {
+                $income += $amount;
+            }
+
+        }
+
+        $balance = $income + $outcome;
 
         return $this->render('accounts/account_details.html.twig', [
             'account' => $account,
             'transactions' => $this->getTransactionsByAccountId($id),
             'income' => $income,
-            'outcome' => $outcome
+            'outcome' => $outcome,
+            'balance' => $balance
         ]);
 
     }
