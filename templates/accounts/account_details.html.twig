@@ -61,6 +61,7 @@
                     <thead>
                         <th>#</th>
                         <th>Amount</th>
+                        <th>Category</th>
                         <th>Date</th>
                     </thead>
 
@@ -68,13 +69,14 @@
 
                         {% if transactions|length < 1 %}
                         <tr>
-                            <td colspan="3">No transaction yet..</td>
+                            <td colspan="4">No transaction yet..</td>
                         </tr>
                         {% else %}
                             {% for transaction in transactions %}
                             <tr>
                                 <td>{{ transaction.getId() }}</td>
                                 <td>{{ transaction.getAmountInEuro() }}</td>
+                                <td>{{ transaction.getCategory() }}</td>
                                 <td>{{ transaction.getDateAsString() }}</td>
                             </tr>
                             {% endfor %}
